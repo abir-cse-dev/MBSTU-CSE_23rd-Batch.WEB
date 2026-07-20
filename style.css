@@ -1,0 +1,226 @@
+/* Custom Reset & Typography */
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap");
+
+:root {
+  --bg-dark: #0b0f19;
+  --bg-card: rgba(22, 28, 45, 0.4);
+  --border-color: rgba(255, 255, 255, 0.08);
+  --primary-accent: #3b82f6; /* Electric Blue */
+  --secondary-accent: #10b981; /* Neon Emerald */
+  --text-main: #f3f4f6;
+  --text-muted: #9ca3af;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* Glassmorphism Global Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 5%;
+  background: rgba(11, 15, 25, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+  z-index: 1000;
+}
+
+.nav-logo {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.nav-logo span {
+  color: var(--primary-accent);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--primary-accent);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--text-main);
+}
+
+/* Global Container Rules */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 8rem 2rem 4rem 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  letter-spacing: -1px;
+}
+
+.section-subtitle {
+  color: var(--text-muted);
+  margin-bottom: 3rem;
+  font-size: 1.1rem;
+}
+
+/* Scrollbar Style */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+/* ==========================================
+   DYNAMIC MOBILE RESPONSIVENESS SYSTEM 
+   ========================================== */
+
+@media (max-width: 768px) {
+  /* 1. Typography & Global Spacing Scales */
+  :root {
+    --section-title-size: 1.8rem;
+  }
+
+  .container {
+    padding: 6rem 1.25rem 3rem 1.25rem; /* Tighter padding for mobile edges */
+  }
+
+  .section-title {
+    font-size: var(--section-title-size);
+  }
+
+  /* 2. Seamless Flex-to-Column Navbar */
+  .navbar {
+    padding: 0.7rem 2rem;
+    flex-direction: row;
+  }
+
+  .nav-links {
+    gap: 1rem;
+    width: 100%;
+    justify-content: right;
+  }
+
+  .nav-links a {
+    font-size: 0.85rem;
+  }
+
+  /* 3. Index Page: Hero Component Optimization */
+  .hero {
+    min-height: auto;
+    padding: 2rem 0;
+  }
+
+  .hero-title {
+    font-size: 2.6rem; /* Shrinks the massive 4.5rem text so it fits perfectly */
+    letter-spacing: -1px;
+  }
+
+  .hero-desc {
+    font-size: 1rem;
+  }
+
+  /* Stack dashboard statistics into a 2x2 grid instead of an awkward squished line */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .stat-card {
+    padding: 1.25rem;
+  }
+
+  .stat-num {
+    font-size: 1.8rem;
+  }
+
+  /* 4. Tasks Page: Adaptive Rows */
+  .task-filters {
+    overflow-x: auto; /* Lets users swipe filters if they run out of horizontal room */
+    padding-bottom: 0.5rem;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .task-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem;
+  }
+
+  .status-badge {
+    align-self: flex-start; /* Keeps the badge neat on its own line */
+  }
+
+  /* 5. Gallery Page: Unified Masonry Fallback */
+  .gallery-grid {
+    grid-template-columns: 1fr; /* Forces images into a sleek single vertical feed */
+    grid-auto-rows: 240px;
+    gap: 1rem;
+  }
+
+  .gallery-item.tall,
+  .gallery-item.wide {
+    grid-row: span 1;
+    grid-column: span 1; /* Strips complex desktop logic so it doesn't break aspect ratios */
+  }
+}

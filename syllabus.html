@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MBSTU CSE | Academic Syllabus</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* Premium High-Tech Table Layout Blueprint */
+      .semester-block {
+        margin-bottom: 4rem;
+      }
+
+      .semester-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-main);
+        margin-bottom: 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .semester-title::before {
+        content: "[//]";
+        font-family: monospace;
+        color: var(--primary-accent);
+        font-size: 1.1rem;
+      }
+
+      /* The Table Styling Engine */
+      /* 1. The Responsive Shield Wrapper */
+      .table-container {
+        width: 100%;
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 14px;
+
+        /* CRUCIAL: This activates horizontal scrolling when the viewport gets narrower than the table */
+        overflow-x: auto;
+
+        /* Enables native, ultra-smooth momentum swiping touch physics on iOS and Android devices */
+        -webkit-overflow-scrolling: touch;
+      }
+
+      /* 2. Lock the minimum text boundary */
+      .crypto-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        font-size: 0.95rem;
+
+        /* Prevents the table columns from aggressively crushing their text content down to single letters */
+        min-width: 700px;
+      }
+
+      /* 3. The Custom High-Tech Scrollbar (Visible on PC when hovering/scrolling) */
+      .table-container::-webkit-scrollbar {
+        height: 6px; /* A thin, elegant slider track */
+      }
+
+      .table-container::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 0 0 14px 14px;
+      }
+
+      .table-container::-webkit-scrollbar-thumb {
+        background: rgba(59, 130, 246, 0.2); /* Subtle electric blue tint */
+        border-radius: 9999px;
+        transition: background 0.2s ease;
+      }
+
+      .table-container::-webkit-scrollbar-thumb:hover {
+        background: var(
+          --primary-accent
+        ); /* Lights up brightly when a PC user grabs it */
+      }
+
+      /* Glassmorphic Header styling */
+      .crypto-table th {
+        background: rgba(255, 255, 255, 0.02);
+        border-bottom: 2px solid var(--border-color);
+        color: var(--text-main);
+        font-weight: 600;
+        padding: 1.1rem 1.5rem;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      /* Complex multi-level row border logic */
+      .crypto-table td {
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        color: var(--text-muted);
+        transition: all 0.2s ease;
+      }
+
+      /* Sleek Hover Interaction */
+      .crypto-table tbody tr:hover td {
+        background: rgba(
+          59,
+          130,
+          246,
+          0.03
+        ); /* Extremely subtle blue tint tint */
+        color: var(--text-main);
+      }
+
+      /* Highlighting specific column types */
+      .code-col {
+        font-family: "Space Grotesk", monospace;
+        color: var(--primary-accent) !important;
+        font-weight: 500;
+        font-size: 0.9rem;
+      }
+
+      .title-col {
+        font-weight: 500;
+      }
+
+      /* Distinct Type Badges for Labs vs Theory */
+      .type-badge {
+        display: inline-block;
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+      }
+
+      .type-theory {
+        background: rgba(59, 130, 246, 0.1);
+        color: var(--primary-accent);
+      }
+
+      .type-lab {
+        background: rgba(16, 185, 129, 0.1);
+        color: var(--secondary-accent);
+      }
+
+      /* Footer / Total Row Matrix styling */
+      .total-row td {
+        background: rgba(255, 255, 255, 0.01);
+        border-top: 2px solid var(--border-color);
+        font-weight: 700;
+        color: var(--text-main) !important;
+        font-size: 0.95rem;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-logo">CSE<span>.23</span></div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home Hub</a></li>
+        <li><a href="tasks.html">Tasks & Logs</a></li>
+        <li><a href="syllabus.html" class="active">Syllabus Matrix</a></li>
+        <li><a href="gallery.html">Visual Gallery</a></li>
+      </ul>
+    </nav>
+
+    <main class="container" style="padding-top: 6rem">
+      <h2 class="section-title">Academic Curriculum Architecture</h2>
+      <p class="section-subtitle">
+        Official department course matrix mapping class loading distributions
+        and earned credits.
+      </p>
+
+      <!-- ================= FIRST SEMESTER ================= -->
+      <div class="semester-block">
+        <h3 class="semester-title">First Year • First Semester</h3>
+        <div class="table-container">
+          <table class="crypto-table">
+            <thead>
+              <tr>
+                <th width="15%">Course Code</th>
+                <th width="50%">Course Title</th>
+                <th width="10%">Type</th>
+                <th width="10%">Theory Hrs</th>
+                <th width="10%">Lab Hrs</th>
+                <th width="5%">Credit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="code-col">0611CSE1101</td>
+                <td class="title-col">
+                  Computer Fundamentals and Basic Programming
+                </td>
+                <td><span class="type-badge type-theory">Theory</span></td>
+                <td>3.00</td>
+                <td>0.00</td>
+                <td>3.00</td>
+              </tr>
+              <tr>
+                <td class="code-col">0611CSE1102</td>
+                <td class="title-col">Basic Programming Lab</td>
+                <td><span class="type-badge type-lab">Lab</span></td>
+                <td>0.00</td>
+                <td>2.00</td>
+                <td>1.00</td>
+              </tr>
+              <tr>
+                <td class="code-col">0713EEE1103</td>
+                <td class="title-col">Electrical Circuit Analysis</td>
+                <td><span class="type-badge type-theory">Theory</span></td>
+                <td>3.00</td>
+                <td>0.00</td>
+                <td>3.00</td>
+              </tr>
+              <tr>
+                <td class="code-col">0713EEE1104</td>
+                <td class="title-col">Electrical Circuit Analysis Lab</td>
+                <td><span class="type-badge type-lab">Lab</span></td>
+                <td>0.00</td>
+                <td>2.00</td>
+                <td>1.00</td>
+              </tr>
+              <tr>
+                <td class="code-col">0713EEE1105</td>
+                <td class="title-col">
+                  Digital Electronics and Pulse Techniques
+                </td>
+                <td><span class="type-badge type-theory">Theory</span></td>
+                <td>3.00</td>
+                <td>0.00</td>
+                <td>3.00</td>
+              </tr>
+              <tr>
+                <td class="code-col">0713EEE1106</td>
+                <td class="title-col">
+                  Digital Electronics and Pulse Techniques Lab
+                </td>
+                <td><span class="type-badge type-lab">Lab</span></td>
+                <td>0.00</td>
+                <td>2.00</td>
+                <td>1.00</td>
+              </tr>
+              <tr>
+                <td class="code-col">0541MATH1107</td>
+                <td class="title-col">
+                  Differential Calculus and Coordinate Geometry
+                </td>
+                <td><span class="type-badge type-theory">Theory</span></td>
+                <td>3.00</td>
+                <td>0.00</td>
+                <td>3.00</td>
+              </tr>
+              <tr>
+                <td class="code-col">0531CHEM1109</td>
+                <td class="title-col">Chemistry</td>
+                <td><span class="type-badge type-theory">Theory</span></td>
+                <td>2.00</td>
+                <td>0.00</td>
+                <td>2.00</td>
+              </tr>
+              <tr>
+                <td class="code-col">0232ELT1111</td>
+                <td class="title-col">English</td>
+                <td><span class="type-badge type-theory">Theory</span></td>
+                <td>3.00</td>
+                <td>0.00</td>
+                <td>3.00</td>
+              </tr>
+              <tr>
+                <td class="code-col">0222HUM1880</td>
+                <td class="title-col">Bhashani Studies</td>
+                <td><span class="type-badge type-theory">Theory</span></td>
+                <td>0.00</td>
+                <td>0.00</td>
+                <td>0.00</td>
+              </tr>
+              <!-- Total Row Metrics -->
+              <tr class="total-row">
+                <td colspan="3">Total Accumulation</td>
+                <td>17</td>
+                <td>6</td>
+                <td>20.00</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ================= SECOND SEMESTER ================= -->
+      <div class="semester-block">
+        <h3 class="semester-title">First Year • Second Semester</h3>
+        <div class="table-container">
+          <table class="crypto-table">
+            <thead>
+              <tr>
+                <th width="15%">Course Code</th>
+                <th width="50%">Course Title</th>
+                <th width="10%">Type</th>
+                <th width="10%">Theory Hrs</th>
+                <th width="10%">Lab Hrs</th>
+                <th width="5%">Credit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="code-col">0713EEE1201</td>
+                <td class="title-col">Electronic Devices and Circuits</td>
+                <td><span class="type-badge type-theory">Theory</span></td>
+                <td>3.00</td>
+                <td>0.00</td>
+                <td>3.00</td>
+              </tr>
+              <tr>
+                <td class="code-col">0713EEE1202</td>
+                <td class="title-col">Electronic Devices and Circuits Lab</td>
+                <td><span class="type-badge type-lab">Lab</span></td>
+                <td>0.00</td>
+                <td>2.00</td>
+                <td>1.00</td>
+              </tr>
+              <tr>
+                <td class="code-col">0613CSE1203</td>
+                <td class="title-col">Structured Programming</td>
+                <td><span class="type-badge type-theory">Theory</span></td>
+                <td>3.00</td>
+                <td>0.00</td>
+                <td>3.00</td>
+              </tr>
+              <tr>
+                <td class="code-col">0613CSE1204</td>
+                <td class="title-col">Structured Programming Lab</td>
+                <td><span class="type-badge type-lab">Lab</span></td>
+                <td>0.00</td>
+                <td>4.00</td>
+                <td>1.50</td>
+              </tr>
+              <tr>
+                <td class="code-col">0613CSE1205</td>
+                <td class="title-col">
+                  Discrete Mathematics and Computational Geometry
+                </td>
+                <td><span class="type-badge type-theory">Theory</span></td>
+                <td>3.00</td>
+                <td>0.00</td>
+                <td>3.00</td>
+              </tr>
+              <tr>
+                <td class="code-col">0533PHY1207</td>
+                <td class="title-col">Physics</td>
+                <td><span class="type-badge type-theory">Theory</span></td>
+                <td>3.00</td>
+                <td>0.00</td>
+                <td>3.00</td>
+              </tr>
+              <tr>
+                <td class="code-col">0533PHY1208</td>
+                <td class="title-col">Physics Lab</td>
+                <td><span class="type-badge type-lab">Lab</span></td>
+                <td>0.00</td>
+                <td>2.00</td>
+                <td>1.00</td>
+              </tr>
+              <tr>
+                <td class="code-col">0542STAT1209</td>
+                <td class="title-col">Statistics</td>
+                <td><span class="type-badge type-theory">Theory</span></td>
+                <td>2.00</td>
+                <td>0.00</td>
+                <td>2.00</td>
+              </tr>
+              <tr>
+                <td class="code-col">0541MATH1211</td>
+                <td class="title-col">
+                  Integral Calculus, Differential Equations and Series Solution
+                </td>
+                <td><span class="type-badge type-theory">Theory</span></td>
+                <td>3.00</td>
+                <td>0.00</td>
+                <td>3.00</td>
+              </tr>
+              <!-- Total Row Metrics -->
+              <tr class="total-row">
+                <td colspan="3">Total Accumulation</td>
+                <td>17</td>
+                <td>08</td>
+                <td>20.00</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSE Batch 23 | Gallery</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* Stunning asymmetrical gallery blocks */
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-auto-rows: 260px;
+        gap: 1.5rem;
+      }
+
+      /* Asymmetric sizing rules for visual distinction */
+      .gallery-item.tall {
+        grid-row: span 2;
+      }
+      .gallery-item.wide {
+        grid-column: span 2;
+      }
+
+      .gallery-item {
+        position: relative;
+        background: #161c2d;
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+        cursor: pointer;
+        transition: all 0.4s ease;
+      }
+
+      /* Target styling for the visual empty block states */
+      .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.7;
+        transition: all 0.5s ease;
+      }
+
+      .gallery-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(11, 15, 25, 0.95) 10%,
+          rgba(11, 15, 25, 0.1) 70%
+        );
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        opacity: 0.85;
+        transition: opacity 0.3s ease;
+      }
+
+      .gallery-item:hover {
+        transform: translateY(-4px) scale(1.02);
+        border-color: rgba(59, 130, 246, 0.4);
+        box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+      }
+
+      .gallery-item:hover img {
+        transform: scale(1.05);
+        opacity: 0.9;
+      }
+
+      .gallery-item:hover .gallery-overlay {
+        opacity: 1;
+      }
+
+      .gallery-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--text-main);
+        transform: translateY(0);
+        transition: transform 0.3s ease;
+      }
+
+      .gallery-desc {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin-top: 0.25rem;
+      }
+
+      /* Responsive fallbacks for narrow viewports */
+      @media (max-width: 768px) {
+        .gallery-item.wide {
+          grid-column: span 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-logo">CSE<span>.23</span></div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home Hub</a></li>
+        <li><a href="tasks.html">Tasks & Logs</a></li>
+        <li><a href="syllabus.html">Syllabus Matrix</a></li>
+        <li><a href="gallery.html" class="active">Visual Gallery</a></li>
+      </ul>
+    </nav>
+
+    <main class="container">
+      <h2 class="section-title">The Vault: Captured Moments</h2>
+      <p class="section-subtitle">
+        Visual highlights of programming sessions, defense days, and campus
+        breaks.
+      </p>
+
+      <div class="gallery-grid">
+        <!-- Item 1 (Tall Block Layout) -->
+        <div class="gallery-item tall">
+          <img src="" alt="Placeholder Memory Slot 1" />
+          <div class="gallery-overlay">
+            <div class="gallery-title">Late Night Defense Jam</div>
+            <div class="gallery-desc">
+              Capturing the exact hour we completed the Operating System
+              presentation.
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 2 (Standard Block Layout) -->
+        <div class="gallery-item">
+          <img src="" alt="Placeholder Memory Slot 2" />
+          <div class="gallery-overlay">
+            <div class="gallery-title">Industrial Tour 2026</div>
+            <div class="gallery-desc">
+              Outside the regional high-tech architecture hub center.
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 3 (Wide Block Layout) -->
+        <div class="gallery-item wide">
+          <img src="" alt="Placeholder Memory Slot 3" />
+          <div class="gallery-overlay">
+            <div class="gallery-title">The Annual Cricket Fest Match</div>
+            <div class="gallery-desc">
+              Batch 23 taking home the departmental trophy after a nail-biting
+              final over.
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 4 (Standard Block Layout) -->
+        <div class="gallery-item">
+          <img src="" alt="Placeholder Memory Slot 4" />
+          <div class="gallery-overlay">
+            <div class="gallery-title">Lab Room 304 Backbenchers</div>
+            <div class="gallery-desc">
+              Where more theories were generated than in the textbook
+              curriculum.
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
