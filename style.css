@@ -40,7 +40,69 @@ body {
   border-bottom: 1px solid var(--border-color);
   z-index: 1000;
 }
+/* We use BOTH ::before and ::after to create two independent beams */
+.navbar::before,
+.navbar::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  width: 120px;
+}
 
+/* Core One: Moving Left to Right */
+.navbar::before {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--primary-accent),
+    transparent
+  );
+  box-shadow: 0 0 10px var(--primary-accent);
+  animation: scanRight 4.2s ease-in-out infinite;
+}
+
+/* Core Two: Moving Right to Left (Slightly faster for variation) */
+.navbar::after {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--text-main),
+    transparent
+  );
+  box-shadow: 0 0 10px var(--text-main);
+  animation: scanLeft 3.2s ease-in-out infinite;
+}
+
+@keyframes scanRight {
+  0% {
+    left: 0%;
+    transform: translateX(-100%);
+  }
+  50% {
+    left: 100%;
+    transform: translateX(0%);
+  }
+  100% {
+    left: 0%;
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes scanLeft {
+  0% {
+    right: 0%;
+    transform: translateX(100%);
+  }
+  50% {
+    right: 100%;
+    transform: translateX(0%);
+  }
+  100% {
+    right: 0%;
+    transform: translateX(100%);
+  }
+}
 .nav-logo {
   font-family: "Space Grotesk", sans-serif;
   font-size: 1.4rem;
@@ -102,11 +164,36 @@ h2,
 h3 {
   font-family: "Space Grotesk", sans-serif;
 }
-
 .section-title {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  letter-spacing: -1px;
+  font-family: "Fira Code", monospace;
+  font-size: 1.8rem;
+  color: #ffffff;
+  position: relative;
+  padding-bottom: 0rem;
+}
+
+/* Injects the double forward slashes code comment syntax */
+.section-title::before {
+  content: "";
+  color: rgba(255, 255, 255, 0.3); /* Muted comment style */
+  font-weight: 400;
+}
+
+/* Adds a high-tech sub-line beneath the text that anchors it down */
+.section-title::after {
+  content: "_";
+  color: var(--primary-accent, #00f2fe);
+  animation: cursorPulse 0.8s infinite alternate;
+  text-shadow: 0 0 8px var(--primary-accent, #00f2fe);
+}
+
+@keyframes cursorPulse {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .section-subtitle {
@@ -133,10 +220,14 @@ h3 {
    DYNAMIC MOBILE RESPONSIVENESS SYSTEM 
    ========================================== */
 
-@media (max-width: 768px) {
+@media (max-width: 725px) {
   /* 1. Typography & Global Spacing Scales */
   :root {
     --section-title-size: 1.8rem;
+  }
+  html {
+    /* Shrinks the root font-size down to 90% */
+    font-size: 75%;
   }
 
   .container {
@@ -149,18 +240,8 @@ h3 {
 
   /* 2. Seamless Flex-to-Column Navbar */
   .navbar {
-    padding: 0.7rem 2rem;
+    padding: 0.9rem 2rem;
     flex-direction: row;
-  }
-
-  .nav-links {
-    gap: 1rem;
-    width: 100%;
-    justify-content: right;
-  }
-
-  .nav-links a {
-    font-size: 0.85rem;
   }
 
   /* 3. Index Page: Hero Component Optimization */

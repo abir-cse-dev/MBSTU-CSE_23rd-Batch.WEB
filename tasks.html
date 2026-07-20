@@ -88,11 +88,105 @@
         color: var(--secondary-accent);
         border: 1px solid rgba(16, 185, 129, 0.15);
       }
+      /* Hide the controller checkbox everywhere */
+      .nav-toggle-checkbox {
+        display: none;
+      }
+
+      /* Hide the trigger button on desktop screens by default */
+      .nav-trigger {
+        display: none;
+        cursor: pointer;
+        font-family: "Fira Code", monospace;
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: var(--primary-accent);
+        text-shadow: 0 0 8px var(--primary-accent);
+        user-select: none;
+        transition: color 0.2s ease;
+      }
+
+      .nav-trigger .trigger-close {
+        display: none; /* Hide close state by default */
+      }
+
+      /* ================= COMPACT MOBILE OVERRIDES ================= */
+      @media (max-width: 380px) {
+        /* Display the custom terminal trigger */
+        .nav-trigger {
+          display: inline-block;
+        }
+
+        /* Transform the nav links container into a vertical drop-down panel */
+        .nav-links {
+          display: none; /* Keep it hidden until checked */
+          position: absolute;
+          top: 100%; /* Sits precisely beneath the navbar border */
+          left: 0;
+          width: 100%;
+          flex-direction: column;
+          gap: 0; /* Clear desktop gaps */
+          background: rgba(10, 14, 23, 0.95); /* Matches your dark background */
+          backdrop-filter: blur(12px);
+          border-bottom: 2px solid var(--border-color);
+          padding: 1rem 0;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Expand vertical menu links to make them easy targets to tap */
+        .nav-links li {
+          width: 100%;
+          text-align: center;
+        }
+
+        .nav-links a {
+          display: block;
+          padding: 1rem 0;
+          font-size: 1rem;
+          width: 100%;
+        }
+
+        /* Retain your active line accent state cleanly */
+        .nav-links a.active::after {
+          bottom: 4px;
+          width: 30px;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+
+        /* ================= CSS TRIGGER ENGINE ================= */
+
+        /* 1. When checkbox is checked, display the vertical panel */
+        .nav-toggle-checkbox:checked ~ .nav-links {
+          display: flex;
+        }
+
+        /* 2. Swap [//] for [X] when menu opens */
+        .nav-toggle-checkbox:checked ~ .nav-trigger .trigger-open {
+          display: none;
+        }
+        .nav-toggle-checkbox:checked ~ .nav-trigger .trigger-close {
+          display: inline-block;
+          color: #ef4444; /* Alert red indicator when menu is deployed */
+          text-shadow: 0 0 8px #ef4444;
+        }
+      }
     </style>
   </head>
   <body>
     <nav class="navbar">
       <div class="nav-logo">CSE<span>.23</span></div>
+
+      <!-- The Hidden State Controller -->
+      <input type="checkbox" id="nav-toggle" class="nav-toggle-checkbox" />
+
+      <!-- Cyberpunk Interactive Menu Button -->
+      <label for="nav-toggle" class="nav-trigger">
+        <span class="trigger-open">[//]</span>
+        <span class="trigger-close">[X]</span>
+      </label>
+
+      <!-- The Links Container -->
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="tasks.html" class="active">Tasks</a></li>
