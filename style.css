@@ -166,7 +166,6 @@ h3 {
   /* 3. Index Page: Hero Component Optimization */
   .hero {
     min-height: auto;
-    padding: 2rem 0;
   }
 
   .hero-title {

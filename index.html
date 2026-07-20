@@ -4,7 +4,7 @@
     <link rel="author" href="https://github.com/abir-cse-dev" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CSE Batch 23 | Hub</title>
+    <title>CSE Batch 23 | Home</title>
     <link rel="stylesheet" href="style.css" />
     <style>
       /* Hero Section Component */
@@ -102,7 +102,7 @@
         position: relative;
         margin-bottom: 3rem;
       }
-      
+
       .timeline-item::before {
         content: "";
         position: absolute;
@@ -120,7 +120,7 @@
         color: var(--secondary-accent);
         margin-bottom: 0.5rem;
       }
-      .timeline-content{
+      .timeline-content {
         position: relative;
         padding-left: 25px;
       }
@@ -133,37 +133,39 @@
         font-size: 0.95rem;
       }
       .timeline-content::before {
-  content: "";
-  position: absolute;
-  left: 0.32rem;
-  top: 13px;
-  
-  /* Tiny solid core */
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--primary-accent);
-  border: none;
-  
-  /* Attaches the hardware-accelerated radar pulse animation */
-  animation: radarPulse 2s infinite cubic-bezier(0.25, 0, 0, 1);
-}
+        content: "";
+        position: absolute;
+        left: 0.32rem;
+        top: 13px;
 
-/* 
+        /* Tiny solid core */
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--primary-accent);
+        border: none;
+
+        /* Attaches the hardware-accelerated radar pulse animation */
+        animation: radarPulse 2s infinite cubic-bezier(0.25, 0, 0, 1);
+      }
+
+      /* 
    The Radar Pulse Engine
    Gradually expands the outer ring while fading it to zero opacity 
 */
-@keyframes radarPulse {
-  0% {
-    box-shadow: 0 0 0 0px rgba(59, 130, 246, 0.7), 
-                0 0 0 0px rgba(59, 130, 246, 0.4);
-  }
-  100% {
-    box-shadow: 0 0 0 8px rgba(59, 130, 246, 0), 
-                0 0 0 16px rgba(59, 130, 246, 0);
-  }
-}
-      
+      @keyframes radarPulse {
+        0% {
+          box-shadow:
+            0 0 0 0px rgba(59, 130, 246, 0.7),
+            0 0 0 0px rgba(59, 130, 246, 0.4);
+        }
+        100% {
+          box-shadow:
+            0 0 0 8px rgba(59, 130, 246, 0),
+            0 0 0 16px rgba(59, 130, 246, 0);
+        }
+      }
+
       .hero-standalone-bg {
         position: absolute;
         left: 0;
@@ -176,7 +178,7 @@
         height: 85vh;
 
         /* Inject your background asset here */
-        background-image: url("/img/cse-12-story.jpg");
+        background-image: url("img/cse-12-story.jpg");
         background-repeat: no-repeat;
         background-position: center center;
         background-size: cover;
@@ -203,88 +205,105 @@
         z-index: 1; /* Drops it directly underneath your text grids */
         pointer-events: none; /* Makes it completely click-through so it never interrupts mouse interactions */
       }
- /* ==========================================
+      /* ==========================================
    MBSTU HIGH-TECH BRANDING SYSTEM
    ========================================== */
 
-.uni-logo {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem; /* Creates perfect breathing room between logo and text */
-  cursor: pointer;
-}
+      .uni-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem; /* Creates perfect breathing room between logo and text */
+        cursor: pointer;
+      }
 
-/* 1. The Logo Image Styling */
-.logo-img {
-  height: 38px; /* Perfectly scaled height to fit inside the modern navbar */
-  width: auto;
-  object-fit: contain;
-  
-  /* Adds a subtle high-tech electric blue glow behind the logo */
-  filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.4)); 
-  
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
+      /* 1. The Logo Image Styling */
+      .logo-img {
+        height: 38px; /* Perfectly scaled height to fit inside the modern navbar */
+        width: auto;
+        object-fit: contain;
 
-/* Micro-interaction: logo spins slightly or scales up on nav hover */
-.uni-logo:hover .logo-img {
-  transform: scale(1.05) rotate(-3deg);
-}
+        /* Adds a subtle high-tech electric blue glow behind the logo */
+        filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.4));
 
-/* 2. The MBSTU Word Styling */
-.logo-text {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 2rem;
-  font-weight: 700;
-  letter-spacing: 1px; /* Modern technical tracking space */
-  
-  /* Futuristic metallic gradient finish */
-  background: linear-gradient(135deg, #ffffff 40%, var(--text-muted) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  
-  /* Subtle digital glow so the letters stand out on dark backgrounds */
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-  transition: all 0.3s ease;
-  position: relative;
-}
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
 
-/* Accent highlight effect on hover */
-.uni-logo:hover .logo-text {
-  background: linear-gradient(135deg, #ffffff 20%, var(--primary-accent) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
-}
+      /* Micro-interaction: logo spins slightly or scales up on nav hover */
+      .uni-logo:hover .logo-img {
+        transform: scale(1.05) rotate(-3deg);
+      }
 
+      /* 2. The MBSTU Word Styling */
+      .logo-text {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 2rem;
+        font-weight: 700;
+        letter-spacing: 1px; /* Modern technical tracking space */
+
+        /* Futuristic metallic gradient finish */
+        background: linear-gradient(
+          135deg,
+          #ffffff 40%,
+          var(--text-muted) 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+        /* Subtle digital glow so the letters stand out on dark backgrounds */
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      /* Accent highlight effect on hover */
+      .uni-logo:hover .logo-text {
+        background: linear-gradient(
+          135deg,
+          #ffffff 20%,
+          var(--primary-accent) 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+      }
+      @media (max-width: 768px) {
+        .hero-tag {
+          font-size: 10px;
+        }
+      }
     </style>
   </head>
   <body>
     <nav class="navbar">
       <div class="nav-logo">CSE<span>.23</span></div>
       <ul class="nav-links">
-        <li><a href="index.html" class="active">Home Hub</a></li>
-        <li><a href="tasks.html">Tasks & Logs</a></li>
-        <li><a href="syllabus.html">Syllabus Matrix</a></li>
-        <li><a href="gallery.html" >Visual Gallery</a></li>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="tasks.html">Tasks</a></li>
+        <li><a href="syllabus.html">Syllabus</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
       </ul>
     </nav>
     <div class="hero-standalone-bg"></div>
     <main class="container">
       <section class="hero">
-       <a href="https://mbstu.ac.bd/" target="_blank" style="text-decoration: none;"> <div class="uni-logo">
+        <a
+          href="https://mbstu.ac.bd/"
+          target="_blank"
+          style="text-decoration: none"
+        >
+          <div class="uni-logo">
+            <img src="img/Logo_of_MBSTU.png" alt="Logo" class="logo-img" />
 
-  <img src="/img/Logo_of_MBSTU.png" alt="Logo" class="logo-img">
-  
-  <span class="logo-text">MBSTU</span>
-</div></a>
-         
-        <br>
+            <span class="logo-text">MBSTU</span>
+          </div></a
+        >
+
+        <br />
         <div class="hero-tag">DEPARTMENT OF COMPUTER SCIENCE & ENGINEERING</div>
-        <h1 class="hero-title">Legacy of<br /></span><span>CSE Batch 23rd</span></h1>
-        
+        <h1 class="hero-title">Legacy of<br /><span>CSE Batch 23rd</span></h1>
+
         <p class="hero-desc">
           Compiling memories, debugging complex systems, and building an
           unbreakable network of engineering excellence through our university
