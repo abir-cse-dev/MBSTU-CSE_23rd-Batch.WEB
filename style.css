@@ -220,14 +220,14 @@ h3 {
    DYNAMIC MOBILE RESPONSIVENESS SYSTEM 
    ========================================== */
 
-@media (max-width: 725px) {
+@media (max-width: 580px) {
   /* 1. Typography & Global Spacing Scales */
   :root {
     --section-title-size: 1.8rem;
   }
   html {
     /* Shrinks the root font-size down to 90% */
-    font-size: 75%;
+    font-size: 60%;
   }
 
   .container {

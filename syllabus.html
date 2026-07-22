@@ -214,29 +214,66 @@
         font-size: 0.95rem;
       }
 
+      /* Hide controller checkbox */
       .nav-toggle-checkbox {
         display: none;
       }
 
+      /* Cyberpunk Interactive Button Trigger */
       .nav-trigger {
         display: none;
         cursor: pointer;
-        font-family: "Fira Code", monospace;
-        font-weight: 700;
-        font-size: 1.1rem;
-        color: var(--primary-accent);
-        text-shadow: 0 0 8px var(--primary-accent);
         user-select: none;
-        transition: color 0.2s ease;
+        padding: 0.4rem 0.6rem;
+        border-radius: 8px;
+        background: rgba(59, 130, 246, 0.08);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        backdrop-filter: blur(8px);
+        transition: all 0.3s ease;
       }
 
-      .nav-trigger .trigger-close {
-        display: none;
+      .nav-trigger:active {
+        transform: scale(0.92);
       }
 
-      @media (max-width: 380px) {
+      /* Hamburger Icon Bars */
+      .btn-icon-box {
+        width: 22px;
+        height: 18px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+      }
+
+      .nav-bar-line {
+        width: 100%;
+        height: 2px;
+        background-color: var(--primary-accent, #00f2fe);
+        border-radius: 2px;
+        box-shadow: 0 0 6px rgba(0, 242, 254, 0.5);
+        transition: all 0.3s ease-in-out;
+      }
+
+      /* Smooth Slide & Fade Keyframes for Dropdown Menu */
+      @keyframes menuSlideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ================= COMPACT MOBILE OVERRIDES ================= */
+      @media (max-width: 320px) {
         .nav-trigger {
-          display: inline-block;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
         .nav-links {
@@ -273,18 +310,37 @@
           transform: translateX(-50%);
         }
 
+        /* ================= CSS TRIGGER ENGINE ================= */
+
+        /* 1. When checkbox is checked, trigger animated slide down */
         .nav-toggle-checkbox:checked ~ .nav-links {
           display: flex;
+          animation: menuSlideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        .nav-toggle-checkbox:checked ~ .nav-trigger .trigger-open {
-          display: none;
+        /* 2. Button State Transformations when open */
+        .nav-toggle-checkbox:checked ~ .nav-trigger {
+          background: rgba(239, 68, 68, 0.12);
+          border-color: rgba(239, 68, 68, 0.4);
+          box-shadow: 0 0 12px rgba(239, 68, 68, 0.2);
         }
 
-        .nav-toggle-checkbox:checked ~ .nav-trigger .trigger-close {
-          display: inline-block;
-          color: #ef4444;
-          text-shadow: 0 0 8px #ef4444;
+        /* Transform hamburger lines into an 'X' symbol */
+        .nav-toggle-checkbox:checked ~ .nav-trigger .line-1 {
+          transform: translateY(8px) rotate(45deg);
+          background-color: #ef4444;
+          box-shadow: 0 0 6px #ef4444;
+        }
+
+        .nav-toggle-checkbox:checked ~ .nav-trigger .line-2 {
+          opacity: 0;
+          transform: scaleX(0);
+        }
+
+        .nav-toggle-checkbox:checked ~ .nav-trigger .line-3 {
+          transform: translateY(-8px) rotate(-45deg);
+          background-color: #ef4444;
+          box-shadow: 0 0 6px #ef4444;
         }
       }
     </style>
@@ -293,11 +349,20 @@
     <nav class="navbar">
       <div class="nav-logo">CSE<span>.23rd</span></div>
 
+      <!-- The Hidden State Controller -->
       <input type="checkbox" id="nav-toggle" class="nav-toggle-checkbox" />
 
-      <label for="nav-toggle" class="nav-trigger">
-        <span class="trigger-open">[//]</span>
-        <span class="trigger-close">[X]</span>
+      <!-- Cyberpunk Animated Button -->
+      <label
+        for="nav-toggle"
+        class="nav-trigger"
+        aria-label="Toggle Navigation"
+      >
+        <div class="btn-icon-box">
+          <span class="nav-bar-line line-1"></span>
+          <span class="nav-bar-line line-2"></span>
+          <span class="nav-bar-line line-3"></span>
+        </div>
       </label>
 
       <ul class="nav-links">
@@ -308,6 +373,7 @@
       </ul>
     </nav>
 
+    <!-- Paste your <main class="container">...</main> content here -->
     <main class="container" style="padding-top: 6rem">
       <h2 class="section-title">Academic Curriculum Architecture</h2>
       <p class="section-subtitle">
@@ -337,6 +403,37 @@
             </svg>
           </button>
           First Year • First Semester
+          <a
+            href="img/syllabus/1y-1s.jpeg"
+            download="first-year_first-semester"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="21"
+              height="21"
+              style="vertical-align: middle; display: inline-block"
+            >
+              <g
+                fill="none"
+                stroke="#00f2fe"
+                stroke-width="2.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <!-- Vertical Arrow Shaft -->
+                <line x1="12" y1="4" x2="12" y2="15" />
+
+                <!-- Arrowhead Wings -->
+                <polyline points="7,10.5 12,15.5 17,10.5" />
+
+                <!-- Bottom Tray -->
+                <path
+                  d="M 5,14.5 v 2.5 a 3,3 0 0,0 3,3 h 8 a 3,3 0 0,0 3,-3 v -2.5"
+                />
+              </g>
+            </svg>
+          </a>
         </h3>
         <div class="table-wrapper">
           <div class="table-inner">
@@ -737,6 +834,37 @@
             </svg>
           </button>
           First Year • Second Semester
+          <a
+            href="img/syllabus/1y-2s.jpeg"
+            download="first-year_second-semester"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="21"
+              height="21"
+              style="vertical-align: middle; display: inline-block"
+            >
+              <g
+                fill="none"
+                stroke="#00f2fe"
+                stroke-width="2.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <!-- Vertical Arrow Shaft -->
+                <line x1="12" y1="4" x2="12" y2="15" />
+
+                <!-- Arrowhead Wings -->
+                <polyline points="7,10.5 12,15.5 17,10.5" />
+
+                <!-- Bottom Tray -->
+                <path
+                  d="M 5,14.5 v 2.5 a 3,3 0 0,0 3,3 h 8 a 3,3 0 0,0 3,-3 v -2.5"
+                />
+              </g>
+            </svg>
+          </a>
         </h3>
         <div class="table-wrapper">
           <div class="table-inner">
@@ -1080,7 +1208,6 @@
         </div>
       </div>
     </main>
-
     <!-- Dynamic Collapse/Expand Script -->
     <script>
       function toggleTable(btn) {

@@ -86,58 +86,183 @@
         margin-top: 0.25rem;
       }
 
+      /* ================= LIGHTBOX PREVIEW MODAL ================= */
+      .lightbox-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        background: rgba(10, 14, 23, 0.85);
+        backdrop-filter: blur(12px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+
+      .lightbox-modal.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .lightbox-content {
+        position: relative;
+        max-width: 900px;
+        width: 100%;
+        background: var(--bg-card, #111827);
+        border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+        transform: scale(0.95);
+        transition: transform 0.3s ease;
+      }
+
+      .lightbox-modal.active .lightbox-content {
+        transform: scale(1);
+      }
+
+      .lightbox-img-wrapper {
+        width: 100%;
+        max-height: 60vh;
+        background: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .lightbox-img-wrapper img {
+        max-width: 100%;
+        max-height: 60vh;
+        object-fit: contain;
+      }
+
+      .lightbox-caption {
+        padding: 1.5rem;
+      }
+
+      .lightbox-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--text-main, #fff);
+      }
+
+      .lightbox-desc {
+        font-size: 0.9rem;
+        color: var(--text-muted, #9ca3af);
+        margin-top: 0.5rem;
+      }
+
+      .lightbox-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: rgba(10, 14, 23, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: var(--primary-accent, #3b82f6);
+        font-family: "Fira Code", monospace;
+        font-weight: 700;
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+        border-radius: 8px;
+        cursor: pointer;
+        z-index: 10;
+        transition: all 0.2s ease;
+      }
+
+      .lightbox-close:hover {
+        background: rgba(239, 68, 68, 0.2);
+        color: #ef4444;
+        border-color: rgba(239, 68, 68, 0.4);
+      }
+
       /* Responsive fallbacks for narrow viewports */
       @media (max-width: 768px) {
         .gallery-item.wide {
           grid-column: span 1;
         }
       }
-      /* Hide the controller checkbox everywhere */
+
+      /* Hide controller checkbox */
       .nav-toggle-checkbox {
         display: none;
       }
 
-      /* Hide the trigger button on desktop screens by default */
+      /* Cyberpunk Interactive Button Trigger */
       .nav-trigger {
         display: none;
         cursor: pointer;
-        font-family: "Fira Code", monospace;
-        font-weight: 700;
-        font-size: 1.1rem;
-        color: var(--primary-accent);
-        text-shadow: 0 0 8px var(--primary-accent);
         user-select: none;
-        transition: color 0.2s ease;
+        padding: 0.4rem 0.6rem;
+        border-radius: 8px;
+        background: rgba(59, 130, 246, 0.08);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        backdrop-filter: blur(8px);
+        transition: all 0.3s ease;
       }
 
-      .nav-trigger .trigger-close {
-        display: none; /* Hide close state by default */
+      .nav-trigger:active {
+        transform: scale(0.92);
+      }
+
+      /* Hamburger Icon Bars */
+      .btn-icon-box {
+        width: 22px;
+        height: 18px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+      }
+
+      .nav-bar-line {
+        width: 100%;
+        height: 2px;
+        background-color: var(--primary-accent, #00f2fe);
+        border-radius: 2px;
+        box-shadow: 0 0 6px rgba(0, 242, 254, 0.5);
+        transition: all 0.3s ease-in-out;
+      }
+
+      /* Smooth Slide & Fade Keyframes for Dropdown Menu */
+      @keyframes menuSlideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
       /* ================= COMPACT MOBILE OVERRIDES ================= */
-      @media (max-width: 380px) {
-        /* Display the custom terminal trigger */
+      @media (max-width: 320px) {
         .nav-trigger {
-          display: inline-block;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
-        /* Transform the nav links container into a vertical drop-down panel */
         .nav-links {
-          display: none; /* Keep it hidden until checked */
+          display: none;
           position: absolute;
-          top: 100%; /* Sits precisely beneath the navbar border */
+          top: 100%;
           left: 0;
           width: 100%;
           flex-direction: column;
-          gap: 0; /* Clear desktop gaps */
-          background: rgba(10, 14, 23, 0.95); /* Matches your dark background */
+          gap: 0;
+          background: rgba(10, 14, 23, 0.95);
           backdrop-filter: blur(12px);
           border-bottom: 2px solid var(--border-color);
           padding: 1rem 0;
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
-        /* Expand vertical menu links to make them easy targets to tap */
         .nav-links li {
           width: 100%;
           text-align: center;
@@ -150,7 +275,6 @@
           width: 100%;
         }
 
-        /* Retain your active line accent state cleanly */
         .nav-links a.active::after {
           bottom: 4px;
           width: 30px;
@@ -160,19 +284,35 @@
 
         /* ================= CSS TRIGGER ENGINE ================= */
 
-        /* 1. When checkbox is checked, display the vertical panel */
+        /* 1. When checkbox is checked, trigger animated slide down */
         .nav-toggle-checkbox:checked ~ .nav-links {
           display: flex;
+          animation: menuSlideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* 2. Swap [//] for [X] when menu opens */
-        .nav-toggle-checkbox:checked ~ .nav-trigger .trigger-open {
-          display: none;
+        /* 2. Button State Transformations when open */
+        .nav-toggle-checkbox:checked ~ .nav-trigger {
+          background: rgba(239, 68, 68, 0.12);
+          border-color: rgba(239, 68, 68, 0.4);
+          box-shadow: 0 0 12px rgba(239, 68, 68, 0.2);
         }
-        .nav-toggle-checkbox:checked ~ .nav-trigger .trigger-close {
-          display: inline-block;
-          color: #ef4444; /* Alert red indicator when menu is deployed */
-          text-shadow: 0 0 8px #ef4444;
+
+        /* Transform hamburger lines into an 'X' symbol */
+        .nav-toggle-checkbox:checked ~ .nav-trigger .line-1 {
+          transform: translateY(8px) rotate(45deg);
+          background-color: #ef4444;
+          box-shadow: 0 0 6px #ef4444;
+        }
+
+        .nav-toggle-checkbox:checked ~ .nav-trigger .line-2 {
+          opacity: 0;
+          transform: scaleX(0);
+        }
+
+        .nav-toggle-checkbox:checked ~ .nav-trigger .line-3 {
+          transform: translateY(-8px) rotate(-45deg);
+          background-color: #ef4444;
+          box-shadow: 0 0 6px #ef4444;
         }
       }
     </style>
@@ -184,13 +324,19 @@
       <!-- The Hidden State Controller -->
       <input type="checkbox" id="nav-toggle" class="nav-toggle-checkbox" />
 
-      <!-- Cyberpunk Interactive Menu Button -->
-      <label for="nav-toggle" class="nav-trigger">
-        <span class="trigger-open">[//]</span>
-        <span class="trigger-close">[X]</span>
+      <!-- Cyberpunk Animated Button -->
+      <label
+        for="nav-toggle"
+        class="nav-trigger"
+        aria-label="Toggle Navigation"
+      >
+        <div class="btn-icon-box">
+          <span class="nav-bar-line line-1"></span>
+          <span class="nav-bar-line line-2"></span>
+          <span class="nav-bar-line line-3"></span>
+        </div>
       </label>
 
-      <!-- The Links Container -->
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="projects.html">Projects</a></li>
@@ -207,53 +353,115 @@
       </p>
 
       <div class="gallery-grid">
-        <!-- Item 1 (Tall Block Layout) -->
-        <div class="gallery-item tall">
-          <img src="" alt="Placeholder Memory Slot 1" />
+        <!-- Item 3 (Tall Block Layout) -->
+        <div class="gallery-item tall" onclick="openLightbox(this)">
+          <img
+            loading="lazy"
+            src="img/mbstu-cse-12story.webp"
+            alt="Placeholder Memory Slot 1"
+          />
           <div class="gallery-overlay">
-            <div class="gallery-title">Late Night Defense Jam</div>
+            <div class="gallery-title">MBSTU- 12- Story Building</div>
             <div class="gallery-desc">
-              Capturing the exact hour we completed the Operating System
-              presentation.
+              Where code meets architecture. The primary operational hub for
+              Batch 23rd, housing our labs, lectures, and system builds.
             </div>
           </div>
         </div>
 
         <!-- Item 2 (Standard Block Layout) -->
-        <div class="gallery-item">
-          <img src="" alt="Placeholder Memory Slot 2" />
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img
+            loading="lazy"
+            src="img/gallery/infront-12story-aftergrooming.webp"
+            alt="Placeholder Memory Slot 2"
+          />
           <div class="gallery-overlay">
-            <div class="gallery-title">Industrial Tour 2026</div>
+            <div class="gallery-title">Post-Grooming Assembly</div>
             <div class="gallery-desc">
-              Outside the regional high-tech architecture hub center.
+              Batch 23rd gathered at the steps of the 12-story building to lock
+              in memories at the close of the grooming program.
             </div>
           </div>
         </div>
 
-        <!-- Item 3 (Wide Block Layout) -->
-        <div class="gallery-item wide">
-          <img src="" alt="Placeholder Memory Slot 3" />
+        <!-- Item 1 (Wide Block Layout) -->
+        <div class="gallery-item wide" onclick="openLightbox(this)">
+          <img
+            loading="lazy"
+            src="img/gallery/groomingday-12storytop.webp"
+            alt="Placeholder Memory Slot 3"
+          />
           <div class="gallery-overlay">
-            <div class="gallery-title">The Annual Cricket Fest Match</div>
+            <div class="gallery-title">Mid-Grooming Assembly</div>
             <div class="gallery-desc">
-              Batch 23 taking home the departmental trophy after a nail-biting
-              final over.
-            </div>
-          </div>
-        </div>
-
-        <!-- Item 4 (Standard Block Layout) -->
-        <div class="gallery-item">
-          <img src="" alt="Placeholder Memory Slot 4" />
-          <div class="gallery-overlay">
-            <div class="gallery-title">Lab Room 304 Backbenchers</div>
-            <div class="gallery-desc">
-              Where more theories were generated than in the textbook
-              curriculum.
+              A quick breather on top of MBSTU’s 12-story building during a
+              session break. Good views, solid company, and a moment to
+              recharge.
             </div>
           </div>
         </div>
       </div>
     </main>
+
+    <!-- Lightbox Modal Blueprint -->
+    <div
+      id="lightbox-modal"
+      class="lightbox-modal"
+      onclick="closeLightbox(event)"
+    >
+      <div class="lightbox-content" onclick="event.stopPropagation()">
+        <button class="lightbox-close" onclick="closeLightboxDirect()">
+          [X]
+        </button>
+        <div class="lightbox-img-wrapper">
+          <img id="lightbox-img" src="" alt="Preview Image" />
+        </div>
+        <div class="lightbox-caption">
+          <div id="lightbox-title" class="lightbox-title"></div>
+          <div id="lightbox-desc" class="lightbox-desc"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lightbox Control Script -->
+    <script>
+      const modal = document.getElementById("lightbox-modal");
+      const modalImg = document.getElementById("lightbox-img");
+      const modalTitle = document.getElementById("lightbox-title");
+      const modalDesc = document.getElementById("lightbox-desc");
+
+      function openLightbox(item) {
+        const img = item.querySelector("img");
+        const title = item.querySelector(".gallery-title");
+        const desc = item.querySelector(".gallery-desc");
+
+        modalImg.src = img.src;
+        modalImg.alt = img.alt;
+        modalTitle.textContent = title ? title.textContent : "";
+        modalDesc.textContent = desc ? desc.textContent : "";
+
+        modal.classList.add("active");
+        document.body.style.overflow = "hidden"; // Lock background scroll
+      }
+
+      function closeLightboxDirect() {
+        modal.classList.remove("active");
+        document.body.style.overflow = ""; // Restore background scroll
+      }
+
+      function closeLightbox(e) {
+        if (e.target === modal) {
+          closeLightboxDirect();
+        }
+      }
+
+      // Close lightbox on Escape key
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modal.classList.contains("active")) {
+          closeLightboxDirect();
+        }
+      });
+    </script>
   </body>
 </html>

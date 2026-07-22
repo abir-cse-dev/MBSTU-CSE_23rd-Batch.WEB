@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSE Batch 23 | Announcements</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* ==================== ANNOUNCEMENTS FEED STYLES ==================== */
+      .announcement-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .admin-trigger-btn {
+        background: rgba(0, 242, 254, 0.1);
+        border: 1px solid #00f2fe;
+        color: #00f2fe;
+        padding: 0.6rem 1.2rem;
+        border-radius: 8px;
+        font-family: "Fira Code", monospace;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .admin-trigger-btn:hover {
+        background: #00f2fe;
+        color: #0a0e17;
+        box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+      }
+
+      .feed-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+      }
+
+      .notice-card {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-left: 4px solid #00f2fe;
+        border-radius: 12px;
+        padding: 1.5rem;
+        backdrop-filter: blur(8px);
+        transition:
+          transform 0.2s ease,
+          border-color 0.3s ease;
+      }
+
+      .notice-card.urgent {
+        border-left-color: #ef4444;
+      }
+
+      .notice-card.exam {
+        border-left-color: #f59e0b;
+      }
+
+      .notice-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+      }
+
+      .notice-meta {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
+        font-size: 0.8rem;
+      }
+
+      .badge {
+        font-family: "Fira Code", monospace;
+        font-weight: 700;
+        padding: 0.2rem 0.6rem;
+        border-radius: 4px;
+        text-transform: uppercase;
+      }
+
+      .badge-urgent {
+        background: rgba(239, 68, 68, 0.2);
+        color: #ef4444;
+        border: 1px solid rgba(239, 68, 68, 0.4);
+      }
+      .badge-notice {
+        background: rgba(0, 242, 254, 0.2);
+        color: #00f2fe;
+        border: 1px solid rgba(0, 242, 254, 0.4);
+      }
+      .badge-exam {
+        background: rgba(245, 158, 11, 0.2);
+        color: #f59e0b;
+        border: 1px solid rgba(245, 158, 11, 0.4);
+      }
+
+      .notice-date {
+        color: rgba(255, 255, 255, 0.5);
+        font-family: "Fira Code", monospace;
+      }
+
+      .notice-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin: 0 0 0.5rem 0;
+      }
+
+      .notice-body {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.95rem;
+        line-height: 1.5;
+        margin: 0;
+        white-space: pre-wrap; /* Preserves line breaks */
+      }
+
+      .notice-author {
+        margin-top: 1rem;
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.4);
+        font-style: italic;
+      }
+
+      /* ==================== ADMIN MODAL ==================== */
+      .modal-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: rgba(10, 14, 23, 0.85);
+        backdrop-filter: blur(12px);
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+      }
+
+      .admin-box {
+        width: 100%;
+        max-width: 500px;
+        background: #111827;
+        border: 1px solid rgba(0, 242, 254, 0.3);
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+        position: relative;
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 1rem;
+        right: 1.2rem;
+        color: #ffffff;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+
+      .form-group {
+        margin-bottom: 1.25rem;
+      }
+
+      .form-group label {
+        display: block;
+        color: #00f2fe;
+        font-family: "Fira Code", monospace;
+        font-size: 0.85rem;
+        margin-bottom: 0.4rem;
+      }
+
+      .form-control {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 8px;
+        padding: 0.75rem;
+        color: #ffffff;
+        font-size: 0.95rem;
+        box-sizing: border-box;
+      }
+
+      .form-control:focus {
+        outline: none;
+        border-color: #00f2fe;
+      }
+
+      .submit-btn {
+        width: 100%;
+        background: #00f2fe;
+        color: #0a0e17;
+        border: none;
+        padding: 0.8rem;
+        border-radius: 8px;
+        font-weight: 700;
+        font-family: "Fira Code", monospace;
+        cursor: pointer;
+        transition: background 0.2s ease;
+      }
+
+      .submit-btn:hover {
+        background: #38bdf8;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <div class="announcement-header">
+        <div>
+          <h2 class="section-title">Batch Broadcast Feed</h2>
+          <p class="section-subtitle">
+            Real-time official updates, exam schedules, and department notices.
+          </p>
+        </div>
+        <button class="admin-trigger-btn" onclick="toggleAdminModal()">
+          [ Admin Portal ]
+        </button>
+      </div>
+
+      <!-- Notices Stream -->
+      <div id="feedContainer" class="feed-container">
+        <div
+          style="
+            color: rgba(255, 255, 255, 0.5);
+            font-family: &quot;Fira Code&quot;, monospace;
+          "
+        >
+          Connecting to live stream...
+        </div>
+      </div>
+    </main>
+
+    <!-- Admin Modal -->
+    <div id="adminModal" class="modal-overlay" onclick="closeOnBackdrop(event)">
+      <div class="admin-box">
+        <span class="close-btn" onclick="toggleAdminModal()">&times;</span>
+
+        <!-- Passkey Authentication Lock -->
+        <div id="authStep">
+          <h3 style="color: #fff; margin-top: 0">Admin Access Verification</h3>
+          <div class="form-group">
+            <label>Enter Passkey</label>
+            <input
+              type="password"
+              id="passkeyInput"
+              class="form-control"
+              placeholder="••••••••"
+            />
+          </div>
+          <button class="submit-btn" onclick="verifyPasskey()">
+            Unlock Portal
+          </button>
+        </div>
+
+        <!-- Notice Creator Form (Hidden initially) -->
+        <div id="formStep" style="display: none">
+          <h3 style="color: #fff; margin-top: 0">Publish Broadcast</h3>
+          <div class="form-group">
+            <label>Tag Category</label>
+            <select id="noticeTag" class="form-control">
+              <option value="notice">General Notice</option>
+              <option value="urgent">Urgent Alert</option>
+              <option value="exam">Exam / Quiz</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Title</label>
+            <input
+              type="text"
+              id="noticeTitle"
+              class="form-control"
+              placeholder="e.g. Lab Exam Rescheduled"
+            />
+          </div>
+          <div class="form-group">
+            <label>Message Content</label>
+            <textarea
+              id="noticeBody"
+              class="form-control"
+              rows="4"
+              placeholder="Type official announcement details here..."
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label>Author / Role</label>
+            <input
+              type="text"
+              id="noticeAuthor"
+              class="form-control"
+              value="Batch Representative"
+            />
+          </div>
+          <button class="submit-btn" onclick="publishNotice()">
+            Post Announcement
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Firebase JavaScript SDK (v9 Modular via CDN) -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import {
+        getFirestore,
+        collection,
+        addDoc,
+        onSnapshot,
+        query,
+        orderBy,
+        serverTimestamp,
+      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+      // 1. Firebase Configuration Credentials
+      // Replace these placeholder strings with your actual Firebase project config values from firebase.google.com
+      const firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+        projectId: "YOUR_PROJECT_ID",
+        storageBucket: "YOUR_PROJECT_ID.appspot.com",
+        messagingSenderId: "YOUR_SENDER_ID",
+        appId: "YOUR_APP_ID",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      const MASTER_PASSKEY = "cse23admin"; // Change this to your preferred passkey!
+
+      // 2. Real-time Database Listener
+      const feedContainer = document.getElementById("feedContainer");
+      const q = query(
+        collection(db, "announcements"),
+        orderBy("timestamp", "desc"),
+      );
+
+      onSnapshot(q, (snapshot) => {
+        feedContainer.innerHTML = "";
+
+        if (snapshot.empty) {
+          feedContainer.innerHTML = `<div style="color: rgba(255,255,255,0.5);">No announcements posted yet.</div>`;
+          return;
+        }
+
+        snapshot.forEach((doc) => {
+          const data = doc.data();
+          const dateStr = data.timestamp
+            ? new Date(data.timestamp.toDate()).toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+              })
+            : "Just now";
+
+          let badgeClass = "badge-notice";
+          if (data.tag === "urgent") badgeClass = "badge-urgent";
+          if (data.tag === "exam") badgeClass = "badge-exam";
+
+          const card = document.createElement("div");
+          card.className = `notice-card ${data.tag}`;
+          card.innerHTML = `
+          <div class="notice-meta">
+            <span class="badge ${badgeClass}">${data.tag}</span>
+            <span class="notice-date">${dateStr}</span>
+          </div>
+          <h3 class="notice-title">${escapeHtml(data.title)}</h3>
+          <p class="notice-body">${escapeHtml(data.body)}</p>
+          <div class="notice-author">— ${escapeHtml(data.author || "Admin")}</div>
+        `;
+          feedContainer.appendChild(card);
+        });
+      });
+
+      // Helper to prevent XSS script injections
+      function escapeHtml(text) {
+        const div = document.createElement("div");
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+      // 3. Publish Notice Handler
+      window.publishNotice = async function () {
+        const title = document.getElementById("noticeTitle").value.trim();
+        const body = document.getElementById("noticeBody").value.trim();
+        const tag = document.getElementById("noticeTag").value;
+        const author = document.getElementById("noticeAuthor").value.trim();
+
+        if (!title || !body) {
+          alert("Please fill in both the title and body content.");
+          return;
+        }
+
+        try {
+          await addDoc(collection(db, "announcements"), {
+            title: title,
+            body: body,
+            tag: tag,
+            author: author,
+            timestamp: serverTimestamp(),
+          });
+
+          // Clear Form and Close Modal
+          document.getElementById("noticeTitle").value = "";
+          document.getElementById("noticeBody").value = "";
+          toggleAdminModal();
+        } catch (e) {
+          alert("Error publishing notice: " + e.message);
+        }
+      };
+
+      // 4. Admin Authentication
+      window.verifyPasskey = function () {
+        const passkey = document.getElementById("passkeyInput").value;
+        if (passkey === MASTER_PASSKEY) {
+          document.getElementById("authStep").style.display = "none";
+          document.getElementById("formStep").style.display = "block";
+        } else {
+          alert("Incorrect passkey!");
+        }
+      };
+    </script>
+
+    <script>
+      function toggleAdminModal() {
+        const modal = document.getElementById("adminModal");
+        const isVisible = modal.style.display === "flex";
+        modal.style.display = isVisible ? "none" : "flex";
+
+        // Reset views when opening
+        if (!isVisible) {
+          document.getElementById("authStep").style.display = "block";
+          document.getElementById("formStep").style.display = "none";
+          document.getElementById("passkeyInput").value = "";
+        }
+      }
+
+      function closeOnBackdrop(e) {
+        if (e.target.id === "adminModal") toggleAdminModal();
+      }
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          document.getElementById("adminModal").style.display = "none";
+        }
+      });
+    </script>
+  </body>
+</html>
