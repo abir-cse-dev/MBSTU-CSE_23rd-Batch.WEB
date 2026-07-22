@@ -140,11 +140,6 @@ body {
   transition: width 0.3s ease;
 }
 
-.nav-links a:hover::after,
-.nav-links a.active::after {
-  width: 100%;
-}
-
 .nav-links a:hover,
 .nav-links a.active {
   color: var(--text-main);
@@ -243,6 +238,9 @@ h3 {
     padding: 0.9rem 2rem;
     flex-direction: row;
   }
+  .nav-links a.active::after {
+    width: 100%;
+  }
 
   /* 3. Index Page: Hero Component Optimization */
   .hero {
@@ -302,5 +300,15 @@ h3 {
   .gallery-item.wide {
     grid-row: span 1;
     grid-column: span 1; /* Strips complex desktop logic so it doesn't break aspect ratios */
+  }
+}
+
+/*Android Optimizations
+/* Applies ONLY to PC .. paste all only pc animations here */
+
+@media (hover: hover) {
+  .nav-links a:hover::after,
+  .nav-links a.active::after {
+    width: 100%;
   }
 }
