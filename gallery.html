@@ -319,7 +319,9 @@
   </head>
   <body>
     <nav class="navbar">
-      <div class="nav-logo">CSE<span>.23rd</span></div>
+      <div class="no-select">
+        <div class="nav-logo">CSE<span>.23rd</span></div>
+      </div>
 
       <!-- The Hidden State Controller -->
       <input type="checkbox" id="nav-toggle" class="nav-toggle-checkbox" />
@@ -337,11 +339,14 @@
         </div>
       </label>
 
+      <!-- The Links Container -->
       <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="syllabus.html">Syllabus</a></li>
-        <li><a href="gallery.html" class="active">Gallery</a></li>
+        <li class="no-select"><a href="index.html">Home</a></li>
+        <li class="no-select"><a href="projects.html">Projects</a></li>
+        <li class="no-select"><a href="syllabus.html">Syllabus</a></li>
+        <li class="no-select">
+          <a href="gallery.html" class="active">Gallery</a>
+        </li>
       </ul>
     </nav>
 

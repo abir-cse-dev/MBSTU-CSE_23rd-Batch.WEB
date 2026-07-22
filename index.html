@@ -462,7 +462,9 @@
   </head>
   <body>
     <nav class="navbar">
-      <div class="nav-logo">CSE<span>.23rd</span></div>
+      <div class="no-select">
+        <div class="nav-logo">CSE<span>.23rd</span></div>
+      </div>
 
       <!-- The Hidden State Controller -->
       <input type="checkbox" id="nav-toggle" class="nav-toggle-checkbox" />
@@ -482,10 +484,10 @@
 
       <!-- The Links Container -->
       <ul class="nav-links">
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="syllabus.html">Syllabus</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
+        <li class="no-select"><a href="index.html" class="active">Home</a></li>
+        <li class="no-select"><a href="projects.html">Projects</a></li>
+        <li class="no-select"><a href="syllabus.html">Syllabus</a></li>
+        <li class="no-select"><a href="gallery.html">Gallery</a></li>
       </ul>
     </nav>
     <div class="hero-standalone-bg"></div>
@@ -502,19 +504,22 @@
             <span class="logo-text">MBSTU</span>
           </div></a
         >
-        <a href="announcements.html" class="announcements-badge">
-          <span class="pulse-dot"></span>
-          <div class="announcements">
-            Announcements <span class="beta-tag">ALPHA</span>
-          </div>
-        </a>
+        <div class="no-select">
+          <a href="announcements.html" class="announcements-badge">
+            <span class="pulse-dot"></span>
+            <div class="announcements">
+              Announcements <span class="beta-tag">ALPHA</span>
+            </div>
+          </a>
+        </div>
 
         <br />
         <div class="hero-tag">
-          <b>DEPARTMENT OF COMPUTER SCIENCE & ENGINEERING</b>
+          <b class="no-select">DEPARTMENT OF COMPUTER SCIENCE & ENGINEERING</b>
         </div>
-        <h1 class="hero-title">Legacy of<br /><span>CSE Batch 23rd</span></h1>
-
+        <div class="no-select">
+          <h1 class="hero-title">Legacy of<br /><span>CSE Batch 23rd</span></h1>
+        </div>
         <p class="hero-desc">
           A live tracking system for the collective milestones, academic
           progress, and engineering journey of CSE Batch 23rd. Together, we are

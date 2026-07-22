@@ -18,6 +18,14 @@
   box-sizing: border-box;
 }
 
+/* Disable text selection on specific elements */
+.no-select {
+  -webkit-user-select: none; /* Safari / Chrome on iOS */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Edge / IE */
+  user-select: none; /* Standard syntax */
+}
+
 body {
   font-family: "Plus Jakarta Sans", sans-serif;
   background-color: var(--bg-dark);
@@ -171,6 +179,10 @@ h3 {
   color: #ffffff;
   position: relative;
   padding-bottom: 0rem;
+  -webkit-user-select: none; /* Safari / Chrome on iOS */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Edge / IE */
+  user-select: none; /* Standard syntax */
 }
 
 /* Injects the double forward slashes code comment syntax */
