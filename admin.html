@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard | Announcements</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .admin-box {
+        max-width: 500px;
+        margin: 40px auto;
+        padding: 24px;
+        background: #18181c;
+        border-radius: 12px;
+        border: 1px solid #27272a;
+      }
+      .form-group {
+        margin-bottom: 16px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 6px;
+        color: #ccc;
+        font-size: 0.9rem;
+      }
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        background: #09090b;
+        border: 1px solid #27272a;
+        color: #fff;
+        border-radius: 6px;
+        box-sizing: border-box;
+      }
+      .btn-submit {
+        width: 100%;
+        padding: 12px;
+        background: #2563eb;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .checkbox-group {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .checkbox-group input {
+        width: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="admin-box">
+      <h2>Post New Notice</h2>
+      <form id="noticeForm">
+        <div class="form-group">
+          <label>Admin Password</label>
+          <input type="password" id="adminPassword" required />
+        </div>
+        <div class="form-group">
+          <label>Notice Title</label>
+          <input
+            type="text"
+            id="title"
+            required
+            placeholder="e.g., Exam Routine Update"
+          />
+        </div>
+        <div class="form-group">
+          <label>Content</label>
+          <textarea id="text" rows="4" required></textarea>
+        </div>
+        <div class="form-group">
+          <label>Author / Role</label>
+          <input type="text" id="author" placeholder="Class Representative" />
+        </div>
+        <div class="form-group checkbox-group">
+          <input type="checkbox" id="isUrgent" />
+          <label for="isUrgent">Mark as Urgent / Priority</label>
+        </div>
+        <button type="submit" class="btn-submit">Publish Announcement</button>
+      </form>
+    </div>
+
+    <script>
+      document
+        .getElementById("noticeForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const payload = {
+            adminPassword: document.getElementById("adminPassword").value,
+            title: document.getElementById("title").value,
+            text: document.getElementById("text").value,
+            author: document.getElementById("author").value,
+            isUrgent: document.getElementById("isUrgent").checked,
+          };
+
+          const res = await fetch("/api/announcements", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+
+          if (res.ok) {
+            alert("Notice published successfully!");
+            window.location.href = "announcements.html";
+          } else {
+            alert("Failed to publish. Check your password.");
+          }
+        });
+    </script>
+  </body>
+</html>
