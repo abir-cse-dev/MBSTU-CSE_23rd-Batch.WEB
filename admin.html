@@ -3,96 +3,308 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Dashboard | Announcements</title>
+    <title>Admin Dashboard | MBSTU CSE '23</title>
     <link rel="stylesheet" href="style.css" />
     <style>
-      .admin-box {
-        max-width: 500px;
+      .admin-wrapper {
+        max-width: 650px;
         margin: 40px auto;
-        padding: 24px;
-        background: #18181c;
-        border-radius: 12px;
-        border: 1px solid #27272a;
+        padding: 0 20px;
       }
+
+      /* Card Box Styles */
+      .admin-card {
+        background: #18181c;
+        border: 1px solid #27272a;
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 24px;
+      }
+
+      .admin-card h2 {
+        margin-top: 0;
+        margin-bottom: 16px;
+        font-size: 1.2rem;
+        color: #fff;
+      }
+
+      /* Login Screen Overlay/Card */
+      #loginScreen {
+        max-width: 400px;
+        margin: 80px auto;
+        text-align: center;
+      }
+
+      #loginScreen h2 {
+        font-size: 1.4rem;
+        margin-bottom: 8px;
+      }
+
+      #loginScreen p {
+        color: #a1a1aa;
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+      }
+
+      /* Form Inputs */
       .form-group {
         margin-bottom: 16px;
+        text-align: left;
       }
+
       .form-group label {
         display: block;
         margin-bottom: 6px;
         color: #ccc;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
       }
+
       .form-group input,
       .form-group textarea {
         width: 100%;
-        padding: 10px;
+        padding: 10px 12px;
         background: #09090b;
         border: 1px solid #27272a;
         color: #fff;
-        border-radius: 6px;
+        border-radius: 8px;
         box-sizing: border-box;
+        font-family: inherit;
+        font-size: 0.95rem;
       }
-      .btn-submit {
-        width: 100%;
-        padding: 12px;
-        background: #2563eb;
-        color: white;
-        border: none;
-        border-radius: 6px;
-        font-weight: bold;
-        cursor: pointer;
+
+      .form-group input:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: #3b82f6;
       }
+
       .checkbox-group {
         display: flex;
         align-items: center;
         gap: 8px;
       }
+
       .checkbox-group input {
         width: auto;
+      }
+
+      /* Buttons */
+      .btn-primary {
+        width: 100%;
+        padding: 12px;
+        background: #2563eb;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s ease;
+      }
+
+      .btn-primary:hover {
+        background: #1d4ed8;
+      }
+
+      /* Manage List Items */
+      .delete-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        background: #09090b;
+        border: 1px solid #27272a;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        gap: 12px;
+      }
+
+      .delete-item-info {
+        overflow: hidden;
+      }
+
+      .delete-item-title {
+        color: #fff;
+        font-size: 0.95rem;
+        font-weight: 500;
+        margin: 0 0 4px 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .delete-item-date {
+        color: #71717a;
+        font-size: 0.8rem;
+      }
+
+      .btn-danger {
+        background: rgba(239, 68, 68, 0.15);
+        color: #ef4444;
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        padding: 6px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.8rem;
+        font-weight: 600;
+        white-space: nowrap;
+        transition: all 0.2s ease;
+      }
+
+      .btn-danger:hover {
+        background: #ef4444;
+        color: white;
+      }
+
+      /* Admin Top Bar */
+      .admin-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+      }
+
+      .btn-logout {
+        background: transparent;
+        border: 1px solid #27272a;
+        color: #a1a1aa;
+        padding: 6px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.8rem;
+      }
+
+      .btn-logout:hover {
+        color: #fff;
+        border-color: #52525b;
+      }
+
+      /* Utility */
+      .hidden {
+        display: none !important;
       }
     </style>
   </head>
   <body>
-    <div class="admin-box">
-      <h2>Post New Notice</h2>
-      <form id="noticeForm">
-        <div class="form-group">
-          <label>Admin Password</label>
-          <input type="password" id="adminPassword" required />
+    <!-- Navigation Bar -->
+
+    <main class="admin-wrapper">
+      <!-- 1. LOGIN SCREEN (Shown if not authenticated) -->
+      <div id="loginScreen" class="admin-card">
+        <h2>Admin Access</h2>
+        <p>Enter password to manage announcements.</p>
+        <form id="loginForm">
+          <div class="form-group">
+            <input
+              type="password"
+              id="loginPassword"
+              placeholder="Enter admin password"
+              required
+            />
+          </div>
+          <button type="submit" class="btn-primary">Unlock Panel</button>
+        </form>
+      </div>
+
+      <!-- 2. MAIN DASHBOARD (Hidden until logged in) -->
+      <div id="dashboard" class="hidden">
+        <div class="admin-header">
+          <h1 style="font-size: 1.5rem; margin: 0">Dashboard</h1>
+          <button onclick="logout()" class="btn-logout">Logout</button>
         </div>
-        <div class="form-group">
-          <label>Notice Title</label>
-          <input
-            type="text"
-            id="title"
-            required
-            placeholder="e.g., Exam Routine Update"
-          />
+
+        <!-- Create Notice Box -->
+        <div class="admin-card">
+          <h2>Post New Notice</h2>
+          <form id="noticeForm">
+            <div class="form-group">
+              <label>Notice Title</label>
+              <input
+                type="text"
+                id="title"
+                required
+                placeholder="e.g., Midterm Exam Schedule"
+              />
+            </div>
+            <div class="form-group">
+              <label>Notice Details</label>
+              <textarea
+                id="text"
+                rows="4"
+                required
+                placeholder="Type the full announcement body..."
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <label>Author / Position</label>
+              <input
+                type="text"
+                id="author"
+                placeholder="Class Representative"
+              />
+            </div>
+            <div class="form-group checkbox-group">
+              <input type="checkbox" id="isUrgent" />
+              <label for="isUrgent">Mark as Urgent / Priority Notice</label>
+            </div>
+            <button type="submit" class="btn-primary">
+              Publish Announcement
+            </button>
+          </form>
         </div>
-        <div class="form-group">
-          <label>Content</label>
-          <textarea id="text" rows="4" required></textarea>
+
+        <!-- Manage Existing Notices Box -->
+        <div class="admin-card">
+          <h2>Active Notices</h2>
+          <div id="manageList">
+            <p style="color: #888; font-size: 0.9rem">
+              Loading announcements...
+            </p>
+          </div>
         </div>
-        <div class="form-group">
-          <label>Author / Role</label>
-          <input type="text" id="author" placeholder="Class Representative" />
-        </div>
-        <div class="form-group checkbox-group">
-          <input type="checkbox" id="isUrgent" />
-          <label for="isUrgent">Mark as Urgent / Priority</label>
-        </div>
-        <button type="submit" class="btn-submit">Publish Announcement</button>
-      </form>
-    </div>
+      </div>
+    </main>
 
     <script>
+      let authToken = sessionStorage.getItem("admin_session") || "";
+
+      // Check login state on load
+      if (authToken) {
+        showDashboard();
+      }
+
+      // Login Form Handler
+      document.getElementById("loginForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const pass = document.getElementById("loginPassword").value.trim();
+        if (pass) {
+          authToken = pass;
+          sessionStorage.setItem("admin_session", pass);
+          showDashboard();
+        }
+      });
+
+      function showDashboard() {
+        document.getElementById("loginScreen").classList.add("hidden");
+        document.getElementById("dashboard").classList.remove("hidden");
+        loadManageList();
+      }
+
+      function logout() {
+        sessionStorage.removeItem("admin_session");
+        authToken = "";
+        document.getElementById("dashboard").classList.add("hidden");
+        document.getElementById("loginScreen").classList.remove("hidden");
+        document.getElementById("loginPassword").value = "";
+      }
+
+      // Publish Notice Handler
       document
         .getElementById("noticeForm")
         .addEventListener("submit", async (e) => {
           e.preventDefault();
+
           const payload = {
-            adminPassword: document.getElementById("adminPassword").value,
+            adminPassword: authToken,
             title: document.getElementById("title").value,
             text: document.getElementById("text").value,
             author: document.getElementById("author").value,
@@ -106,12 +318,67 @@
           });
 
           if (res.ok) {
-            alert("Notice published successfully!");
-            window.location.href = "announcements.html";
+            alert("Notice published!");
+            document.getElementById("title").value = "";
+            document.getElementById("text").value = "";
+            document.getElementById("author").value = "";
+            document.getElementById("isUrgent").checked = false;
+            loadManageList();
           } else {
-            alert("Failed to publish. Check your password.");
+            alert("Failed to publish. Invalid password session.");
+            logout();
           }
         });
+
+      // Fetch List
+      async function loadManageList() {
+        const container = document.getElementById("manageList");
+        try {
+          const res = await fetch("/api/announcements");
+          const notices = await res.json();
+
+          if (!notices || notices.length === 0) {
+            container.innerHTML =
+              '<p style="color:#888; font-size: 0.9rem;">No active announcements.</p>';
+            return;
+          }
+
+          container.innerHTML = notices
+            .map(
+              (notice) => `
+          <div class="delete-item">
+            <div class="delete-item-info">
+              <p class="delete-item-title">${notice.title}</p>
+              <span class="delete-item-date">${notice.date}</span>
+            </div>
+            <button class="btn-danger" onclick="deleteNotice(${notice.id})">Delete</button>
+          </div>
+        `,
+            )
+            .join("");
+        } catch (err) {
+          container.innerHTML =
+            '<p style="color:#ef4444; font-size: 0.9rem;">Error fetching notices.</p>';
+        }
+      }
+
+      // Delete Notice Handler
+      async function deleteNotice(id) {
+        if (!confirm("Are you sure you want to delete this notice?")) return;
+
+        const res = await fetch("/api/announcements", {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id, adminPassword: authToken }),
+        });
+
+        if (res.ok) {
+          loadManageList();
+        } else {
+          alert("Failed to delete. Session expired or password invalid.");
+          logout();
+        }
+      }
     </script>
   </body>
 </html>

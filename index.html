@@ -458,6 +458,69 @@
           box-shadow: 0 0 6px #ef4444;
         }
       }
+      /* --- Homepage Notice Ticker Bar --- */
+      .ticker-wrapper {
+        display: flex;
+        align-items: center;
+        background: #121215;
+        border-bottom: 1px solid #27272a;
+        padding: 8px 16px;
+        overflow: hidden;
+        font-size: 0.875rem;
+        gap: 12px;
+      }
+
+      .ticker-badge {
+        background: #2563eb;
+        color: #ffffff;
+        padding: 3px 10px;
+        border-radius: 4px;
+        font-weight: 700;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        white-space: nowrap;
+        letter-spacing: 0.5px;
+        flex-shrink: 0;
+      }
+
+      /* Rolling / Scrolling Container */
+      .ticker-content {
+        flex-grow: 1;
+        overflow: hidden;
+        white-space: nowrap;
+        position: relative;
+      }
+
+      .ticker-content a {
+        display: inline-block;
+        color: #e4e4e7;
+        text-decoration: none;
+        padding-left: 100%;
+        animation: marquee 18s linear infinite;
+        transition: color 0.2s ease;
+      }
+
+      /* Pause animation on hover so users can read/click easily */
+      .ticker-content a:hover {
+        animation-play-state: paused;
+        color: #60a5fa;
+        text-decoration: underline;
+      }
+
+      /* Marquee Animation Keyframes */
+      @keyframes marquee {
+        0% {
+          transform: translate(0, 0);
+        }
+        100% {
+          transform: translate(-100%, 0);
+        }
+      }
+
+      /* Hide ticker if there are no notices */
+      .ticker-wrapper.hidden {
+        display: none;
+      }
     </style>
   </head>
   <body>
@@ -490,6 +553,12 @@
         <li class="no-select"><a href="gallery.html">Gallery</a></li>
       </ul>
     </nav>
+    <div class="ticker-wrapper" id="noticeTicker">
+      <div class="ticker-badge">Latest Notice</div>
+      <div class="ticker-content">
+        <a href="announcements.html" id="tickerText">Checking for updates...</a>
+      </div>
+    </div>
     <div class="hero-standalone-bg"></div>
     <main class="container">
       <section class="hero">
@@ -640,6 +709,36 @@
 
         updateBangladeshTicker();
       });
+    </script>
+    <!--Notice -->
+    <script>
+      async function loadHomepageNotice() {
+        const tickerWrapper = document.getElementById("noticeTicker");
+        const tickerText = document.getElementById("tickerText");
+
+        try {
+          const res = await fetch("/api/announcements");
+          if (!res.ok) throw new Error();
+
+          const notices = await res.json();
+
+          if (notices && notices.length > 0) {
+            const latest = notices[0]; // Gets the most recent notice
+
+            // Show urgent indicator in ticker if applicable
+            const prefix = latest.isUrgent ? "🚨 [URGENT] " : "📌 ";
+            tickerText.textContent = `${prefix}${latest.title} — ${latest.text}`;
+          } else {
+            // Hide ticker bar completely if no notices exist
+            tickerWrapper.classList.add("hidden");
+          }
+        } catch (err) {
+          // Hide silently on offline/local views where API isn't available
+          tickerWrapper.classList.add("hidden");
+        }
+      }
+
+      loadHomepageNotice();
     </script>
   </body>
 </html>
