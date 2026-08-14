@@ -267,21 +267,53 @@
     <script>
       let authToken = sessionStorage.getItem("admin_session") || "";
 
-      // Check login state on load
+      // On page load, verify saved session password
       if (authToken) {
-        showDashboard();
+        verifyPassword(authToken).then((isValid) => {
+          if (isValid) {
+            showDashboard();
+          } else {
+            logout();
+          }
+        });
       }
 
-      // Login Form Handler
-      document.getElementById("loginForm").addEventListener("submit", (e) => {
-        e.preventDefault();
-        const pass = document.getElementById("loginPassword").value.trim();
-        if (pass) {
-          authToken = pass;
-          sessionStorage.setItem("admin_session", pass);
-          showDashboard();
+      // Login Form Submission
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const pass = document.getElementById("loginPassword").value.trim();
+
+          if (!pass) return;
+
+          const isValid = await verifyPassword(pass);
+          if (isValid) {
+            authToken = pass;
+            sessionStorage.setItem("admin_session", pass);
+            showDashboard();
+          } else {
+            alert("Incorrect admin password! Access denied.");
+            document.getElementById("loginPassword").value = "";
+            document.getElementById("loginPassword").focus();
+          }
+        });
+
+      // Function to ping Cloudflare /api/auth endpoint
+      async function verifyPassword(password) {
+        try {
+          const res = await fetch("/api/auth", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ password }),
+          });
+          return res.ok;
+        } catch (err) {
+          // Offline / local preview fallback warning
+          console.warn("API not reachable locally.");
+          return false;
         }
-      });
+      }
 
       function showDashboard() {
         document.getElementById("loginScreen").classList.add("hidden");
@@ -325,7 +357,7 @@
             document.getElementById("isUrgent").checked = false;
             loadManageList();
           } else {
-            alert("Failed to publish. Invalid password session.");
+            alert("Session expired or password invalid.");
             logout();
           }
         });
@@ -346,19 +378,19 @@
           container.innerHTML = notices
             .map(
               (notice) => `
-          <div class="delete-item">
-            <div class="delete-item-info">
-              <p class="delete-item-title">${notice.title}</p>
-              <span class="delete-item-date">${notice.date}</span>
-            </div>
-            <button class="btn-danger" onclick="deleteNotice(${notice.id})">Delete</button>
+        <div class="delete-item">
+          <div class="delete-item-info">
+            <p class="delete-item-title">${notice.title}</p>
+            <span class="delete-item-date">${notice.date}</span>
           </div>
-        `,
+          <button class="btn-danger" onclick="deleteNotice(${notice.id})">Delete</button>
+        </div>
+      `,
             )
             .join("");
         } catch (err) {
           container.innerHTML =
-            '<p style="color:#ef4444; font-size: 0.9rem;">Error fetching notices.</p>';
+            '<p style="color:#ef4444; font-size: 0.9rem;">Failed to load notices.</p>';
         }
       }
 
@@ -375,7 +407,7 @@
         if (res.ok) {
           loadManageList();
         } else {
-          alert("Failed to delete. Session expired or password invalid.");
+          alert("Failed to delete. Session invalid.");
           logout();
         }
       }
