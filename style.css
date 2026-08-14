@@ -253,7 +253,6 @@ h3 {
 
   /* 2. Seamless Flex-to-Column Navbar */
   .navbar {
-    padding: 0.9rem 2rem;
     flex-direction: row;
   }
 
